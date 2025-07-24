@@ -65,7 +65,7 @@ const updateSelectedFormat = ({ itag }: { itag: string }) => {
 const getAvailableFormats = computed((): FormatInfo[] => {
   if (formats.value && "video" in formats.value) {
     let res = Object.values(formats.value.video);
-    console.log({ res });
+
     return res;
   }
 
