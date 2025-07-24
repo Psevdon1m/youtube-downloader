@@ -1,34 +1,42 @@
-import { exec } from "child_process";
 import ffmpegPath from "ffmpeg-static";
+import ytdlp from "yt-dlp-exec";
 
-export const getVideoFormats = async (url: string) => {
-  return new Promise((resolve, reject) => {
-    exec(`yt-dlp -J --skip-download "${url}"`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(stderr);
-        reject(stderr);
-      } else {
-        resolve(stdout);
-      }
-    });
-  });
+export const getVideoFormats = async (url: string): Promise<any> => {
+  try {
+    const result = await ytdlp(url, {
+      dumpSingleJson: true,
+      noWarnings: true,
+      preferFreeFormats: true,
+    } as any);
+
+    return result;
+  } catch (error) {
+    console.error("yt-dlp error:", error);
+    throw error;
+  }
 };
 
-export function downloadVideo(url: string, format: string, outputPath: string) {
-  return new Promise((resolve, reject) => {
-    const command = `yt-dlp -f ${format.replace(
-      "-drc",
-      ""
-    )} --ffmpeg-location "${ffmpegPath}"  -o "${outputPath}/%(title)s" ${url}`;
-    console.log({ command });
+export async function downloadVideo(
+  url: string,
+  format: string,
+  outputPath: string
+): Promise<any> {
+  const cleanedFormat = format.replace("-drc", "");
 
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        console.error(stderr);
-        reject(stderr);
-      } else {
-        resolve(stdout);
-      }
-    });
-  });
+  const options: any = {
+    format: cleanedFormat,
+    ffmpegLocation: ffmpegPath || undefined,
+    output: `${outputPath}/%(title)s.%(ext)s`,
+    mergeOutputFormat: "mp4",
+  };
+
+  console.log("Running yt-dlp with:", options);
+
+  try {
+    const result = await ytdlp(url, options);
+    return result;
+  } catch (error) {
+    console.error("Download error:", error);
+    throw error;
+  }
 }

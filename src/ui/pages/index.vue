@@ -36,9 +36,9 @@ const download = async () => {
 const handleUrlChange = async (url: string) => {
   if (url.length) {
     try {
-      let rawData = await window.electronAPI.getVideoFormats(url);
+      let rawData = (await window.electronAPI.getVideoFormats(url)) as any;
 
-      const parsedData = extractBestAudioAndVideo(rawData);
+      const parsedData = extractBestAudioAndVideo(rawData.formats);
 
       formats.value = parsedData;
       status.value = "Please select a format to download";

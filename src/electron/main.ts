@@ -10,14 +10,14 @@ const __dirname = path.dirname(__filename);
 function createWindow() {
   console.log({ __dirname });
   const win = new BrowserWindow({
-    width: 1440,
+    width: 800,
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "../dist-electron/preload/index.js"),
       contextIsolation: true,
     },
   });
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   win.loadFile(path.join(app.getAppPath(), "/dist-vue/index.html"));
 }

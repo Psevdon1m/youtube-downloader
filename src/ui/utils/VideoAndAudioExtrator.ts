@@ -10,11 +10,7 @@ export type ExtractedFormats = {
   video: Partial<Record<"720p" | "1080p" | "1440p" | "2160p", FormatInfo>>;
 };
 
-export function extractBestAudioAndVideo(json: string): ExtractedFormats {
-  const data = JSON.parse(json);
-
-  const formats = data.formats;
-
+export function extractBestAudioAndVideo(formats: any): ExtractedFormats {
   const audioCandidates = formats
     .filter((f: any) => f.vcodec === "none" && f.acodec !== "none")
     .sort((a: any, b: any) => (b.abr ?? 0) - (a.abr ?? 0));
