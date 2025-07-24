@@ -1,6 +1,5 @@
 import { exec } from "child_process";
-
-import ytdl from "ytdl-core";
+import ffmpegPath from "ffmpeg-static";
 
 export const getVideoFormats = async (url: string) => {
   return new Promise((resolve, reject) => {
@@ -16,7 +15,7 @@ export function downloadVideo(url: string, format: string, outputPath: string) {
     const command = `yt-dlp -f ${format.replace(
       "-drc",
       ""
-    )} -o "${outputPath}/%(title)s" ${url}`;
+    )} --ffmpeg-location "${ffmpegPath}"  -o "${outputPath}/%(title)s" ${url}`;
     console.log({ command });
 
     exec(command, (error, stdout, stderr) => {
