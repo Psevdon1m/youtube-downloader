@@ -1,8 +1,24 @@
 import { exec } from "child_process";
 
-export function downloadVideo(url: string, outputPath: string) {
+import ytdl from "ytdl-core";
+
+export const getVideoFormats = async (url: string) => {
   return new Promise((resolve, reject) => {
-    const command = `yt-dlp -f best -o "${outputPath}/%(title)s.%(ext)s" ${url}`;
+    exec(`yt-dlp -J --skip-download "${url}"`, (error, stdout, stderr) => {
+      if (error) reject(stderr);
+      else resolve(stdout);
+    });
+  });
+};
+
+export function downloadVideo(url: string, format: string, outputPath: string) {
+  return new Promise((resolve, reject) => {
+    const command = `yt-dlp -f ${format.replace(
+      "-drc",
+      ""
+    )} --merge-output-format mp4  -o "${outputPath}/%(title)s.%(resolution)s.%(format_id)s.%(id)s" ${url}`;
+    console.log({ command });
+
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.error(stderr);

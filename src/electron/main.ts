@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 
 import path from "path";
 import { fileURLToPath } from "url";
-import { downloadVideo } from "./yt-dlp.js";
+import { downloadVideo, getVideoFormats } from "./yt-dlp.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,13 +10,14 @@ const __dirname = path.dirname(__filename);
 function createWindow() {
   console.log({ __dirname });
   const win = new BrowserWindow({
-    width: 800,
+    width: 1440,
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "../dist-electron/preload/index.js"),
       contextIsolation: true,
     },
   });
+  win.webContents.openDevTools();
 
   win.loadFile(path.join(app.getAppPath(), "/dist-vue/index.html"));
 }
@@ -31,9 +32,14 @@ app.whenReady().then(() => {
   });
 });
 
-ipcMain.handle("download-video", async (_, url) => {
+ipcMain.handle("download-video", async (_, url, format) => {
+  console.log({ url, format });
+
   const downloadsPath = app.getPath("downloads");
-  return await downloadVideo(url, downloadsPath);
+  return await downloadVideo(url, format, downloadsPath);
+});
+ipcMain.handle("get-video-formats", async (_, url) => {
+  return await getVideoFormats(url);
 });
 
 app.on("window-all-closed", () => {
