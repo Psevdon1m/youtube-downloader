@@ -16,7 +16,7 @@ export function downloadVideo(url: string, format: string, outputPath: string) {
     const command = `yt-dlp -f ${format.replace(
       "-drc",
       ""
-    )} --merge-output-format mp4  -o "${outputPath}/%(title)s.%(resolution)s.%(format_id)s.%(id)s" ${url}`;
+    )} -o "${outputPath}/%(title)s" ${url}`;
     console.log({ command });
 
     exec(command, (error, stdout, stderr) => {

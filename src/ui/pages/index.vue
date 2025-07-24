@@ -9,6 +9,7 @@ const url = ref("");
 const status = ref("");
 const formats = ref<ExtractedFormats | {}>();
 const selectedFormat = ref("");
+
 const download = async () => {
   if (url.value) {
     status.value = "Downloading...";
@@ -39,12 +40,12 @@ const handleUrlChange = async (url: string) => {
   }
 };
 
-const updateSelectedFormat = (format: string) => {
+const updateSelectedFormat = ({ itag }: { itag: string }) => {
   if (formats.value && "audio" in formats.value) {
     selectedFormat.value =
-      format.toString() + "+" + formats.value.audio.id.toString();
+      itag.toString() + "+" + formats.value.audio.id.toString();
   } else {
-    selectedFormat.value = format;
+    selectedFormat.value = itag;
   }
 };
 

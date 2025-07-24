@@ -1,7 +1,7 @@
 <template>
   <ul v-if="formats.length" @click="formatSelected">
     <li v-for="format in formats" :key="format.id" :data-itag="format.id">
-      {{ format.resolution }} | {{ format.filesize }} |
+      {{ format.resolution }} | {{ getSizeInMb(format.filesize) }} |
       {{ format.ext }}
     </li>
   </ul>
@@ -13,18 +13,28 @@ const { formats } = defineProps<{
   formats: FormatInfo[];
 }>();
 const emit = defineEmits<{
-  (event: "format-selected", itag: string): void;
+  (event: "format-selected", payload: { itag: string }): void;
 }>();
+
+const getSizeInMb = (bytes: number | null) => {
+  if (!bytes) return `0 Mb`;
+  let mb = Math.floor(bytes / 1024 / 1024);
+  let gb = Number((mb / 1024).toFixed(2));
+  if (gb >= 1) {
+    return `${gb}Gb`;
+  } else {
+    return `${mb}Mb`;
+  }
+};
 
 const formatSelected = (e: MouseEvent) => {
   const target = e.target as HTMLElement;
   const li = target.closest("li");
 
-  if (li && li.dataset.itag) {
+  if (li && li.dataset.itag && li.dataset.ext) {
     const itag = li.dataset.itag;
-    console.log({ selectedFormat: itag });
 
-    emit("format-selected", itag);
+    emit("format-selected", { itag });
   }
 };
 </script>

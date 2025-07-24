@@ -33,8 +33,6 @@ app.whenReady().then(() => {
 });
 
 ipcMain.handle("download-video", async (_, url, format) => {
-  console.log({ url, format });
-
   const downloadsPath = app.getPath("downloads");
   return await downloadVideo(url, format, downloadsPath);
 });
