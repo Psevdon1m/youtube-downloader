@@ -1,0 +1,16 @@
+{
+  "appId": "com.psevdon1m.youtube-downloader",
+  "productName": "Youtube Downloader",
+  "copyright": "Copyright © 2025",
+  "icon": "./youtube-icon.png",
+  "mac": {
+    "target": ["dmg"]
+  },
+  "linux": {
+    "target": ["AppImage"],
+    "category": "Utility"
+  },
+  "win": {
+    "target": ["portable", "msi"]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "youtube-downloader",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev:vue": "vite",
+    "dev:electron": "electron .",
+    "build": "tsc && vite build",
+    "transpile:electron": "tsc --project src/electron/tsconfig.json",
+    "preview": "vite preview",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/ui/assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/ui/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=src/ui/assets/icons/png/1024x1024.png --prune=false --out=release-builds"
+  },
+  "dependencies": {
+    "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/tsconfig": "^0.7.0",
+    "electron": "^37.2.4",
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4",
+    "vue-tsc": "^2.2.12"
+  }
+}
