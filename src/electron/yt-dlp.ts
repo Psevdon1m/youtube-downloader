@@ -4,8 +4,12 @@ import ffmpegPath from "ffmpeg-static";
 export const getVideoFormats = async (url: string) => {
   return new Promise((resolve, reject) => {
     exec(`yt-dlp -J --skip-download "${url}"`, (error, stdout, stderr) => {
-      if (error) reject(stderr);
-      else resolve(stdout);
+      if (error) {
+        console.error(stderr);
+        reject(stderr);
+      } else {
+        resolve(stdout);
+      }
     });
   });
 };
