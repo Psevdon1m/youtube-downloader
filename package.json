@@ -10,7 +10,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "transpile:electron": "tsc --project src/electron/tsconfig.json",
+    "transpile:electron": "tsc --project src/electron/tsconfig.json && tsc --project src/preload/tsconfig.json",
     "preview": "vite preview",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/ui/assets/icons/mac/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/ui/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
