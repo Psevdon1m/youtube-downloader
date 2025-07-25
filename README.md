@@ -6,6 +6,7 @@ A cross-platform desktop application for downloading YouTube videos in various f
 
 - Download YouTube videos in multiple formats (audio/video)
 - Select from available video/audio formats before downloading
+- Merges HQ video formats with HQ audio format, which allows you to download 4k vids from youtube.
 - Simple, modern UI
 - Cross-platform: Windows, macOS, and Linux
 
