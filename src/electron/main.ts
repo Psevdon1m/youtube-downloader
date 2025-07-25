@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, Tray } from "electron";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -6,6 +6,8 @@ import { downloadVideo, getVideoFormats } from "./yt-dlp.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+let tray: Tray | null = null;
 
 function createWindow() {
   console.log({ __dirname });
@@ -20,6 +22,21 @@ function createWindow() {
   // win.webContents.openDevTools();
 
   win.loadFile(path.join(app.getAppPath(), "/dist-vue/index.html"));
+
+  const icon = path.join(
+    app.getAppPath(),
+    "/src/electron/assets/icons/youtube-tray.png"
+  );
+
+  tray = new Tray(icon);
+
+  tray.on("click", () => {
+    if (win.isVisible() === true) {
+      win.hide();
+    } else {
+      win.show();
+    }
+  });
 }
 
 app.whenReady().then(() => {
@@ -44,4 +61,5 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+  tray?.destroy();
 });

@@ -12,9 +12,9 @@
     "type-check": "vue-tsc --build",
     "transpile:electron": "tsc --project src/electron/tsconfig.json && tsc --project src/preload/tsconfig.json",
     "preview": "vite preview",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/ui/assets/icons/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/ui/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
-    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=src/ui/assets/icons/png/1024x1024.png --prune=false --out=release-builds"
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/electron/assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/electron/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=src/electron/assets/icons/linux/icon.png --prune=false --out=release-builds"
   },
   "dependencies": {
     "@tsconfig/node22": "^22.0.1",
