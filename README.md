@@ -40,11 +40,12 @@ A cross-platform desktop application for downloading YouTube videos in various f
    ```
 2. **Run the app in development mode:**
    ```bash
-   npm run dev
+   npm run build
+   npm run dev:electron
    ```
 3. **Build for production:**
    ```bash
-   npm run build
+   npm run package-mac:full
    ```
 
 ## License
