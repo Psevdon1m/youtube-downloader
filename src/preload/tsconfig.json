@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "target": "ESNext",
+    "outDir": "../../dist-electron/preload",
+    "skipLibCheck": true
+  }
+}

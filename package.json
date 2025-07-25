@@ -10,18 +10,24 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "transpile:electron": "tsc --project src/electron/tsconfig.json",
+    "transpile:electron": "tsc --project src/electron/tsconfig.json && tsc --project src/preload/tsconfig.json",
     "preview": "vite preview",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/ui/assets/icons/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/ui/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
-    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=src/ui/assets/icons/png/1024x1024.png --prune=false --out=release-builds"
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/electron/assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/electron/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=src/electron/assets/icons/linux/icon.png --prune=false --out=release-builds"
   },
   "dependencies": {
+    "@tsconfig/node22": "^22.0.1",
+    "@vueuse/core": "^13.5.0",
+    "ffmpeg-static": "^5.2.0",
+    "install": "^0.13.0",
+    "npm": "^11.4.2",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
     "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.5.1",
-    "@tsconfig/node22": "^22.0.1"
+    "yt-dlp-exec": "^1.0.2",
+    "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
@@ -29,12 +35,12 @@
     "electron": "^37.2.4",
     "electron-builder": "^26.0.12",
     "electron-packager": "^17.1.2",
+    "npm-run-all2": "^6.1.2",
     "typescript": "~5.8.3",
     "unplugin-auto-import": "^19.3.0",
     "unplugin-vue-components": "^28.8.0",
     "unplugin-vue-router": "^0.14.0",
     "vite": "^7.0.4",
-    "vue-tsc": "^2.2.12",
-    "npm-run-all2": "^6.1.2"
+    "vue-tsc": "^2.2.12"
   }
 }
