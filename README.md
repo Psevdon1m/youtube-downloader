@@ -43,7 +43,7 @@ A cross-platform desktop application for downloading YouTube videos in various f
    ```
 3. **Build for production:**
    ```bash
-   npm run build
+   npm run package-mac:full
    ```
 
 ## License
